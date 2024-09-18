@@ -1,3 +1,4 @@
+require("dotenv").config();
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -11,8 +12,8 @@ const multer = require('multer');
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URI = (`mongodb+srv://choudharygaurav884:310886Cluster.@@node.gzezwi7.mongodb.net`)
-
+const MONGODB_URI =process.env.MONGODB_URI;
+const PORT =process.env.PORT;
 const app = express();
 const store = new MongoDBStore({
 
@@ -102,8 +103,7 @@ app.use((req, res, next) => {
 
 mongoose
   .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(result => {
-    app.listen(3000);
-    console.log("server is Running");
+    app.listen(PORT);
   })
   .catch(err => {
     console.log("this is error", err);
